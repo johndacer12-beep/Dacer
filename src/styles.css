@@ -199,10 +199,26 @@ p { margin: 0; }
 .mask { display: inline-block; overflow: hidden; vertical-align: top; padding-top: .22em; margin-top: -.22em; }
 .char { display: inline-block; transform-style: preserve-3d; }
 .tagline { margin-top: 1.5rem; max-width: 40ch; color: var(--muted); }
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.carousel-card.is-active {
+  animation: cardFloat 3.8s ease-in-out infinite;
+}
+
 .gradient-bar {
   height: clamp(2rem, 4vw, 4.5rem);
   margin-top: 2.5rem;
-  background: linear-gradient(90deg, var(--teal), var(--orange));
+  background: linear-gradient(90deg, var(--teal), var(--orange), var(--teal));
+  background-size: 200% 100%;
+  animation: gradientShift 8s ease-in-out infinite alternate;
 }
 
 /* Sections */

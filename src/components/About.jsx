@@ -12,21 +12,24 @@ export default function About() {
     const ctx = gsap.context(() => {
       media.add({ reduce: '(prefers-reduced-motion: reduce)', full: '(prefers-reduced-motion: no-preference)' }, ({ conditions }) => {
         const reduced = conditions.reduce
-        const sideTravel = window.matchMedia('(max-width: 719px)').matches ? 54 : 150
+        const isMobile = window.matchMedia('(max-width: 719px)').matches
+        const sideTravel = isMobile ? 30 : 150
+        const scrollActions = isMobile ? 'play none none none' : 'play reverse play reverse'
+
         gsap.fromTo('.about-top h2',
-          { autoAlpha: 0, x: reduced ? 0 : -sideTravel, rotationY: reduced ? 0 : -24, transformOrigin: 'left center' },
-          { autoAlpha: 1, x: 0, rotationY: 0, duration: 1.25, delay: .12, ease: 'back.out(1.6)', immediateRender: false,
-            scrollTrigger: { trigger: section.current, start: 'top 90%', end: 'bottom 18%', toggleActions: 'play reverse play reverse' } },
+          { autoAlpha: 0, x: reduced ? 0 : -sideTravel, rotationY: reduced ? 0 : -20, transformOrigin: 'left center' },
+          { autoAlpha: 1, x: 0, rotationY: 0, duration: 1.2, delay: .1, ease: 'back.out(1.5)', immediateRender: false,
+            scrollTrigger: { trigger: section.current, start: isMobile ? 'top 92%' : 'top 90%', end: 'bottom 18%', toggleActions: scrollActions, once: isMobile } },
         )
         gsap.fromTo('.about-top .prose',
-          { autoAlpha: 0, x: reduced ? 0 : sideTravel, rotationY: reduced ? 0 : 18, transformOrigin: 'right center' },
-          { autoAlpha: 1, x: 0, rotationY: 0, duration: 1.25, delay: .24, ease: 'back.out(1.6)', immediateRender: false,
-            scrollTrigger: { trigger: section.current, start: 'top 82%', end: 'bottom 18%', toggleActions: 'play reverse play reverse' } },
+          { autoAlpha: 0, x: reduced ? 0 : sideTravel, rotationY: reduced ? 0 : 16, transformOrigin: 'right center' },
+          { autoAlpha: 1, x: 0, rotationY: 0, duration: 1.2, delay: .2, ease: 'back.out(1.5)', immediateRender: false,
+            scrollTrigger: { trigger: section.current, start: isMobile ? 'top 86%' : 'top 82%', end: 'bottom 18%', toggleActions: scrollActions, once: isMobile } },
         )
         gsap.fromTo('.about-details .expertise li',
-          { autoAlpha: 0, x: (index) => reduced ? 0 : (index % 2 === 0 ? -sideTravel * .7 : sideTravel * .7), y: reduced ? 0 : 24, rotationY: (index) => reduced ? 0 : (index % 2 === 0 ? -16 : 16) },
-          { autoAlpha: 1, x: 0, y: 0, rotationY: 0, duration: 1.15, delay: .12, ease: 'back.out(1.5)', stagger: .12, immediateRender: false,
-            scrollTrigger: { trigger: '.about-details', start: 'top 94%', end: 'bottom 18%', toggleActions: 'play reverse play reverse' } },
+          { autoAlpha: 0, x: (index) => reduced ? 0 : (index % 2 === 0 ? -sideTravel * .6 : sideTravel * .6), y: reduced ? 0 : 22, rotationY: (index) => reduced ? 0 : (index % 2 === 0 ? -12 : 12) },
+          { autoAlpha: 1, x: 0, y: 0, rotationY: 0, duration: 1.1, delay: .1, ease: 'back.out(1.4)', stagger: .12, immediateRender: false,
+            scrollTrigger: { trigger: '.about-details', start: isMobile ? 'top 96%' : 'top 94%', end: 'bottom 18%', toggleActions: scrollActions, once: isMobile } },
         )
       }, section)
     }, section)
